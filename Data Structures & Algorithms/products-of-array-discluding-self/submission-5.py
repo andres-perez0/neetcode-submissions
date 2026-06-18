@@ -1,0 +1,14 @@
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        # initialized both lists to a fixed size of n filled with 1s
+        prefix_list = [1] * n
+        suffix_list = [1] * n
+        
+        for i in range(1, n):
+            prefix_list[i] = nums[i-1] * prefix_list[i-1]
+            
+            j = n - 1 - i
+            suffix_list[j] = nums[j+1] * suffix_list[j+1]
+
+        return [x*y for x, y in zip(prefix_list, suffix_list)]
